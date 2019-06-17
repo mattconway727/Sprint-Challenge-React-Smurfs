@@ -28,6 +28,15 @@ class App extends Component {
         }, 2000);
       });
   }
+
+  setSmurfData = data => this.setState({ smurfs: data });
+
+  setErrorHandler = errMsg => {
+    this.setState({ errorMessage: errMsg });
+    setTimeout(() => {
+      this.setState({ errorMessage: null });
+    }, 2000);
+  };
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
@@ -37,7 +46,10 @@ class App extends Component {
         {this.state.errorMessage !== null ? (
           <h3 style={{ color: "red" }}>{this.state.errorMessage}</h3>
         ) : null}
-        <SmurfForm />
+        <SmurfForm
+          setSmurfData={this.setSmurfData}
+          setErrorHandler={this.setErrorHandler}
+        />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
